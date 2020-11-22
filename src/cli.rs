@@ -1,19 +1,38 @@
-mod cmd_assemble {
+pub mod cmd_assemble {
     use std::process::Command;
 
-    pub fn Assemble(cmd: String, args: Vec<String>) -> Command {
+    pub fn assemble(cmd: String, args: Vec<String>) -> Command {
         let mut ret: Command = Command::new(cmd);
         ret.args(args);
     
         ret
     }
 
-    pub fn Parse(args: Vec<String>) -> (String, Vec<String>) {
-        let cmd: String = args[0].to_string();
-        let arguments: Vec<String> = args[1..].to_vec();
+    pub fn parse(args: Vec<String>) -> (String, Vec<String>) {
+        let cmd: String = args[1].to_string();
+        let arguments: Vec<String> = args[2..].to_vec();
 
         (cmd, arguments)
     }
+
+    pub fn handle_execution_success(cmd: std::process::Child, logging_level: u8) -> () {
+        match logging_level {
+            0 => 
+                println!("{:#?}", cmd.stdout),
+            _ => 
+                println!("{:#?}", cmd.stdout)
+        }
+    }
+
+    pub fn handle_execution_error(error: std::io::Error, logging_level: u8) -> () {
+        match logging_level {
+            0 => 
+                panic!("{:?}", error),
+            _ => 
+                panic!("{:?}", error)
+        }
+    }
+
 }
 
 #[cfg(test)]
@@ -29,7 +48,7 @@ mod cli_tests {
             .expect("Failed to execute")
         };
         let test_command = {
-            super::cmd_assemble::Assemble("ls".to_string(), vec!("-l".to_string(),"-a".to_string()))
+            super::cmd_assemble::assemble("ls".to_string(), vec!("-l".to_string(),"-a".to_string()))
             .output()
             .expect("Failed to execute.")
         };
@@ -49,7 +68,7 @@ mod cli_tests {
             "-a".to_string()
         );
 
-        assert_eq!(expectation, super::cmd_assemble::Parse(argument));
+        assert_eq!(expectation, super::cmd_assemble::parse(argument));
     }
 
     #[test]
@@ -60,14 +79,14 @@ mod cli_tests {
             "-a".to_string()
         );
         let manual_assemble = {
-            super::cmd_assemble::Assemble("ls".to_string(), vec!("-l".to_string(),"-a".to_string()))
+            super::cmd_assemble::assemble("ls".to_string(), vec!("-l".to_string(),"-a".to_string()))
             .output()
             .expect("Failed to execute.")
         };
 
-        let (arg1, arg2) = super::cmd_assemble::Parse(argument);
+        let (arg1, arg2) = super::cmd_assemble::parse(argument);
         let test_assemble_with_parse = {
-            super::cmd_assemble::Assemble(arg1, arg2)
+            super::cmd_assemble::assemble(arg1, arg2)
             .output()
             .expect("Failed to execute.")
         };
