@@ -6,6 +6,7 @@ A terminal wrapper implementation of the Dreamcacher Logging System. Operates by
  - Exit code
  - Environment variables
  - Directory location
+ - Current date/time 
  
 This version of the Dreamcacher Logging System is intended to be used on a per-command basis. It allows the user to individually choose the commands they wish to log at the tradeoff of logging efficiency and overhead computing power. 
 
