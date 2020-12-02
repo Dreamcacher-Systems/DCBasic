@@ -10,4 +10,4 @@ A terminal wrapper implementation of the Dreamcacher Logging System. Operates by
  
 This version of the Dreamcacher Logging System is intended to be used on a per-command basis. It allows the user to individually choose the commands they wish to log at the tradeoff of logging efficiency and overhead computing power. 
 
-The Dreamcacher Kernel-Terminal Middleman Daemon is currently in development for use in enterprise and mass/passive logging scenarios.
+The Dreamcacher Kernel-Terminal Middleman Daemon will soon be in development for use in enterprise and mass/passive logging scenarios.
