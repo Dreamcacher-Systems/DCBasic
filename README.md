@@ -2,6 +2,7 @@
 
 A terminal wrapper implementation of the Dreamcacher Logging System. Operates by wrapping around terminal commands and logging the following:
  - Stdout
+ - Stdin
  - Stderror
  - Exit code
  - Environment variables
